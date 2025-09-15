@@ -1,79 +1,81 @@
+# Zally: A Minimalistic, Simple-to-Use API Linter
+
 [![Build Status](https://travis-ci.org/zalando-incubator/zally.svg?branch=master)](https://travis-ci.org/zalando-incubator/zally)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/05a7515011504c06b1cb35ede27ac7d4)](https://www.codacy.com/app/zally/zally?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zalando-incubator/zally&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/05a7515011504c06b1cb35ede27ac7d4)](https://www.codacy.com/app/zally/zally?utm_source=github.com&utm_medium=referral&utm_content=zalando-incubator/zally&utm_campaign=Badge_Coverage)
 
-<img src="logo.png" width="200" height="200" />
+<p align="center">
+  <img src="logo.png" width="200" height="200" />
+</p>
 
-### Zally: A minimalistic, simple-to-use API linter
+Zally is a quality assurance tool for OpenAPI specifications. It helps you to check your APIs for compliance with a set of rules and best practices. Zally comes with a default set of rules that checks for compliance with the [Zalando RESTful API and Event Scheme Guidelines](https://zalando.github.io/restful-api-guidelines/).
 
-Zally brings order to your sea of APIs. Use it to:
-- enable/disable rules on the server side
-- configure (some) of the existing rules
-- implement your own rules in [Kotlin](https://kotlinlang.org/)
+Zally is designed to be easy to use and to integrate into your existing development workflow. You can use Zally as a command-line tool, a web-based UI, or as a part of your CI/CD pipeline.
 
-Its standard configuration will check your APIs against the rules defined in [Zalando's RESTful Guidelines](http://zalando.github.io/restful-api-guidelines/), but anyone can use it **out-of-the-box**.
+## Features
 
-Zally's easy-to-use [CLI](cli/README.md) uses the server in the background so that you can check your API *on the spot*. It also features an intuitive [Web UI](web-ui/README.md) that shows implemented rules and lints external files and (with its online editor) API definitions.
+* **Rich set of Rules:** Zally comes with a rich set of rules to check for compliance with the Zalando RESTful API and Event Scheme Guidelines.
+* **Easy to use:** Zally comes with a simple and intuitive command-line interface (CLI) and a web-based user interface (UI).
+* **Extensible:** You can easily create your own custom rules to enforce your own API guidelines. Zally is written in Kotlin, which makes it easy to write new rules.
+* **Integrates with your workflow:** Zally can be integrated with your existing CI/CD pipeline to automatically check your APIs for compliance.
+* **Supports OpenAPI 2.0 (Swagger) and 3.0:** Zally can lint both OpenAPI 2.0 and 3.0 specifications.
 
-More about Zally:
-- Swagger-friendly: accepts [Swagger](https://swagger.io) .yaml and JSON formats; includes a server that lints your Swagger files; and parses Swagger files using [swagger-parser](https://github.com/swagger-api/swagger-parser)
-- Using `x-zally-ignore` extension in your API definition, you can disable rules for a specific API
-- Applying rule changes is only necessary in the server component
-- API-specific code written in Java 8 with [Spring Boot](https://github.com/spring-projects/spring-boot) for better integration
-- Rule implementation is optimal/possible in Kotlin
+## Getting Started
 
-### Technical Dependencies
+### Prerequisites
 
-- Kotlin and Java 8 (server) with Spring Boot 
-- Golang 1.7+: for CLI
-- Node.js 7.6+: for web UI
+* [Docker](https://www.docker.com/get-started)
+* [Docker Compose](https://docs.docker.com/compose/install/)
 
-Find additional details [here](https://github.com/zalando-incubator/zally/pull/65#issuecomment-269474831). With Spring 5, we consider using Kotlin also directly on the API side.
+### Running Zally
 
-### Installation and Usage
-
-To give Zally a quick try, first run the server locally and then use the CLI tool.
-
-The [Server Readme](server/README.md), [CLI Readme](cli/README.md) and [Web UI Readme](web-ui/README.md) include more detailed installation steps for each component.
-
-### Quick start guide
-
-You can build and run the whole Zally stack (web-ui, server and database) by
-executing this script:
+The easiest way to get started with Zally is to use the provided `build-and-run.sh` script. This script will build and run all the components of Zally, including the server, the web UI, and the database.
 
 ```bash
 ./build-and-run.sh
 ```
 
-Web UI is accessible on `http://localhost:8080`; Zally server on `http://localhost:8000`
+Once the script has finished, you can access the web UI at `http://localhost:8080` and the Zally server at `http://localhost:8000`.
 
-*To run zally with github integration*:
+### Linting your first file
+
+You can use the Zally CLI to lint an OpenAPI specification. The CLI is available as a pre-compiled binary for Linux, macOS, and Windows. You can download the latest release from the [releases page](https://github.com/zalando/zally/releases).
+
+Once you have downloaded the CLI, you can lint a file using the following command:
+
 ```bash
-export GITHUB_OAUTH_TOKEN=your_github_oauth_token
-export GITHUB_SECRET=your_github_secret
+zally lint path/to/your/swagger.yaml
+```
 
-./build-and-run.sh --bark
-``` 
-Github webhook endpoint is accessible on http://localhost:8081/github_webhook
-More details about how to register[Webhooks](https://developer.github.com/webhooks/) 
+## Components
 
-### Contributing
+Zally is composed of several components:
 
-Zally welcomes contributions from the open source community. To get started, take a look at our [contributing guidelines](CONTRIBUTING). Then check our [Project Board](https://github.com/zalando-incubator/zally/projects/1) and [Issues Tracker](https://github.com/zalando-incubator/zally/issues) for ideas. 
+* **[Server](server/README.md):** The server is the core of Zally. It provides a REST API for linting OpenAPI specifications.
+* **[CLI](cli/README.md):** The command-line interface (CLI) is a tool for interacting with the Zally server from the command line.
+* **[Web UI](web-ui/README.md):** The web UI is a user-friendly interface for linting OpenAPI specifications.
+* **[GitHub Integration](github-integration/README.md):** Zally can be integrated with GitHub to automatically lint your OpenAPI specifications when you push changes to your repository.
 
-#### Roadmap
-For Zally [version 1.2](https://github.com/zalando-incubator/zally/milestone/3), we're focusing on:
-- generating new rules
-- a new quickstart script
-- better integration testing approaches
+For more information about each component, please refer to the `README.md` file in the corresponding directory.
 
-If you have ideas for these items, please let us know.
+## Configuration
 
-### Contact
+Zally can be configured using a `zally.yaml` file. This file allows you to enable and disable rules, and to configure the behavior of Zally.
 
-Feel free to contact one the [maintainers](MAINTAINERS).
+Here is an example of a `zally.yaml` file:
 
+```yaml
+rules:
+  # Disable the UseStandardHttpStatusCodes rule
+  UseStandardHttpStatusCodes: off
+```
 
-### License
+For more information about the configuration options, please refer to the [Zally documentation](https://zalando.github.io/zally/user-guide/rules).
 
-MIT license with an exception. See [license file](LICENSE).
+## Contributing
+
+We welcome contributions from the community. If you would like to contribute to Zally, please read our [contributing guidelines](CONTRIBUTING).
+
+## License
+
+Zally is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
